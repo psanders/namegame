@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {NextFunction, Request, Response} from "express";
+import { NextFunction, Request, Response } from "express"
 
 // eslint-disable-next-line require-jsdoc
 export default function errorMiddleware(
@@ -24,11 +24,11 @@ export default function errorMiddleware(
   response: Response,
   next: NextFunction
 ) {
-  const status = error.status || 500;
+  const status = error.status || 500
   const message =
-    error.message || "Something went wrong. Please try again later";
+    error.message || "Something went wrong. Please try again later"
   response.status(status).send({
     status,
     message
-  });
+  })
 }

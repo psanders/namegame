@@ -16,15 +16,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dotenv from "dotenv";
-import {join} from "path";
+import dotenv from "dotenv"
+import { join } from "path"
 
 if (process.env.NODE_ENV === "dev") {
-  dotenv.config({path: join(__dirname, ".env")});
+  dotenv.config({ path: join(__dirname, ".env") })
 }
 
-import start from "./index";
-import {ServiceConfig} from "./types";
+import start from "./index"
+import { ServiceConfig } from "./types"
 
 const config: ServiceConfig = {
   profilesAPIUrl: process.env.PROFILE_API_URL,
@@ -35,7 +35,7 @@ const config: ServiceConfig = {
     host: process.env.REDIS_HOST || "localhost",
     port: (process.env.REDIS_PORT && parseInt(process.env.REDIS_PORT)) || 6379
   }
-};
+}
 
 // Stars the server
-start(config);
+start(config)

@@ -19,15 +19,15 @@
 // Holds the state for the game session
 export interface GameSession {
   // The unique identifier of the session
-  sessionId: string;
+  sessionId: string
   // The mode of the game
-  mode: GameMode;
+  mode: GameMode
   // The id for the current profile
-  currentProfileId?: string;
+  currentProfileId?: string
   // The number of turns already played
-  turn: number;
+  turn: number
   // The expiration time for the game (it will be deleted after this time)
-  expire: number;
+  expire: number
 }
 
 // Enum with possible modes for the game
@@ -41,93 +41,93 @@ export enum GameMode {
 // Holds the state for a hand within the game session
 export interface Hand {
   // The name of the profile for the current hand
-  name: string;
+  name: string
   // A list with the profiles for the current hand
-  profiles: ProfileSummary[];
+  profiles: ProfileSummary[]
 }
 
 // Weather the hand is a win or not
 export interface HandResult {
   // Did ther user won the turn?
-  won: boolean;
+  won: boolean
   // The current number of turns
-  turn: number;
+  turn: number
 }
 
 // The headshot for the profile
 export interface Headshot {
   // The unique identifier of the image
-  id: string;
+  id: string
   // The alt tag for the image
-  alt: string;
+  alt: string
   // The high of the image
-  height: number;
+  height: number
   // The width of the image
-  width: number;
+  width: number
   // The mimetype of the image. For now only supports `image/jpeg`
-  mimeType: "image/jpeg";
+  mimeType: "image/jpeg"
   // The type of media. For now only supports `image`
-  type: "image";
-  url: string;
+  type: "image"
+  url: string
 }
 
 // The profile of the employee
 export interface Profile {
   // The unique identifier of the profile
-  id: string;
+  id: string
   // The first name of the profile
-  firstName: string;
+  firstName: string
   // The last name of the profile
-  lastName: string;
+  lastName: string
   // The job title of the profile
-  jobTitle: string;
+  jobTitle: string
   // The slug of the profile?
-  slug: string;
+  slug: string
   // A list of the social links for the profile
-  socialLinks: string[];
+  socialLinks: string[]
   // The type of profile. For now only supports `person`
-  type: "person";
+  type: "person"
   // The headshot object for the profile
-  headshot: Headshot;
+  headshot: Headshot
 }
 
 // The summary of the profile. This is used to return the profile to the client
 export interface ProfileSummary {
   // The id of the profile.
-  id: string;
+  id: string
   // The URL of the employee's avatar.
-  headshot: Headshot;
+  headshot: Headshot
 }
 
 // Interface for the redis client
 export interface RedisClient {
   // Gets the value using the key
-  get(key: string): Promise<string>;
+  get(key: string): Promise<string>
   // Sets a key/value pair
-  set(key: string, value: string): Promise<void>;
+  set(key: string, value: string): Promise<void>
   // Sets the expiration time for a key
-  expire(key: string, seconds: number): Promise<void>;
+  expire(key: string, seconds: number): Promise<void>
 }
 
 // TODO: Extend to include username and password
 // Basic redis configuration.
 export interface RedisConfig {
   // The host of the redis server
-  host: string;
+  host: string
   // The port of the redis server
-  port: number;
+  port: number
 }
 
 // The configuration for the Name Game service
 export interface ServiceConfig {
   // The port of the server
-  port: number;
+  port: number
   // The base path for the API. It will be used to prefix all the API routes.
-  basePath: "/api";
+  basePath: "/api"
   // The version of the API. It will be used to prefix all the API routes.
-  apiVersion: "v1.0";
+  apiVersion: "v1.0"
   // The configuration for the redis server
-  redis: RedisConfig;
+  redis: RedisConfig
   // The url for the profiles API
-  profilesAPIUrl: string;
+  profilesAPIUrl: string
 }

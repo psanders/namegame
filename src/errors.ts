@@ -20,14 +20,14 @@
  * This error is thrown if the game session is not found.
  */
 export default class GameNotFoundException extends Error {
-  status: number;
+  status: number
   /**
    * Creates a new GameNotFoundException instance.
    *
    * @param {string} sessionId - The unique session identifier.
    */
   constructor(sessionId: string) {
-    super(`Game session ${sessionId} not found`);
-    this.status = 404;
+    super(`Game session ${sessionId} not found`)
+    this.status = 404
   }
 }

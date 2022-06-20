@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import GameNotFoundException from "./errors";
+import GameNotFoundException from "./errors"
 import {
   Profile,
   GameMode,
@@ -23,7 +23,7 @@ import {
   Hand,
   HandResult,
   RedisClient
-} from "./types";
+} from "./types"
 
 /**
  * A closure for the createGameSession function.
@@ -49,13 +49,13 @@ export function createGameSession(redis: RedisClient) {
       mode,
       turn: 0,
       expire
-    };
+    }
 
-    await redis.set(session.sessionId, JSON.stringify(session));
-    await redis.expire(session.sessionId, expire);
+    await redis.set(session.sessionId, JSON.stringify(session))
+    await redis.expire(session.sessionId, expire)
 
-    return session;
-  };
+    return session
+  }
 }
 
 /**
@@ -71,12 +71,12 @@ export function getGameSession(redis: RedisClient) {
    * @param {string} sessionId - The session id.
    */
   return async (sessionId: string): Promise<GameSession> => {
-    const session = await redis.get(sessionId);
+    const session = await redis.get(sessionId)
     if (!session) {
-      throw new GameNotFoundException(sessionId);
+      throw new GameNotFoundException(sessionId)
     }
-    return JSON.parse(session);
-  };
+    return JSON.parse(session)
+  }
 }
 
 /**
@@ -98,10 +98,10 @@ export function createNewHand(
    * @throws {GameNotFoundException} - If the session is not found.
    */
   return async (sessionId: string): Promise<Hand> => {
-    const session = await getGameSession(redis)(sessionId);
-    const profiles = await getProfiles();
+    const session = await getGameSession(redis)(sessionId)
+    const profiles = await getProfiles()
 
-    const currentProfile = profiles[0];
+    const currentProfile = profiles[0]
 
     const hand = {
       name: `${currentProfile.firstName} ${currentProfile.lastName}`,
@@ -110,19 +110,19 @@ export function createNewHand(
         return {
           id: e.id,
           headshot: e.headshot
-        };
+        }
       })
-    };
+    }
 
-    const updatedSession = {...session};
-    updatedSession.currentProfileId = currentProfile.id;
+    const updatedSession = { ...session }
+    updatedSession.currentProfileId = currentProfile.id
 
     // Updates the session + extends the session expiration time
-    await redis.set(sessionId, JSON.stringify(updatedSession));
-    await redis.expire(sessionId, session.expire);
+    await redis.set(sessionId, JSON.stringify(updatedSession))
+    await redis.expire(sessionId, session.expire)
 
-    return hand;
-  };
+    return hand
+  }
 }
 
 /**
@@ -139,19 +139,19 @@ export function playHand(redis: RedisClient) {
    * @param {string} profileId - The profile id.
    */
   return async (sessionId: string, profileId: string): Promise<HandResult> => {
-    const session = await getGameSession(redis)(sessionId);
+    const session = await getGameSession(redis)(sessionId)
 
-    const updatedSession = {...session};
-    updatedSession.turn++;
-    updatedSession.currentProfileId = undefined;
+    const updatedSession = { ...session }
+    updatedSession.turn++
+    updatedSession.currentProfileId = undefined
 
     // Updates the session + extends the session expiration time
-    redis.set(sessionId, JSON.stringify(updatedSession));
-    redis.expire(sessionId, session.expire);
+    redis.set(sessionId, JSON.stringify(updatedSession))
+    redis.expire(sessionId, session.expire)
 
     return {
       won: session.currentProfileId === profileId,
       turn: session.turn + 1
-    };
-  };
+    }
+  }
 }

@@ -15,10 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {Profile} from "./types";
+import { Profile } from "./types"
 
 // TODO: Replace with Axios or NodeJS native fetch
-const fetch = require("node-fetch");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fetch = require("node-fetch")
 
 /**
  * Encloses the getProfiles function.
@@ -29,10 +30,10 @@ const fetch = require("node-fetch");
 export function createGetProfiles(url: string) {
   // The function retrieves a list of profiles and returns a random subset of them.
   return async (): Promise<Profile[]> => {
-    const response = await fetch(url);
-    const profiles = JSON.parse(await response.text()) as Profile[];
-    return getRandomProfiles(profiles);
-  };
+    const response = await fetch(url)
+    const profiles = JSON.parse(await response.text()) as Profile[]
+    return getRandomProfiles(profiles)
+  }
 }
 
 /**
@@ -47,5 +48,5 @@ export default function getRandomProfiles(
   profiles: Profile[],
   no = 6
 ): Profile[] {
-  return profiles.sort(() => Math.random() - 0.5).slice(0, no);
+  return profiles.sort(() => Math.random() - 0.5).slice(0, no)
 }
