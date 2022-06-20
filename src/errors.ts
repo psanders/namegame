@@ -1,5 +1,5 @@
 /*
- * Copyright (C) <%= YEAR %> by Pedro Sanders
+ * Copyright (C) 2022 by Pedro Sanders
  *
  * This file is part of Name Game Application.
  *
@@ -15,3 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * This error is thrown if the game session is not found.
+ */
+export default class GameNotFoundException extends Error {
+  status: number;
+  /**
+   * Creates a new GameNotFoundException instance.
+   *
+   * @param {string} sessionId - The unique session identifier.
+   */
+  constructor(sessionId: string) {
+    super(`Game session ${sessionId} not found`);
+    this.status = 404;
+  }
+}

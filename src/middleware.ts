@@ -1,5 +1,5 @@
 /*
- * Copyright (C) <%= YEAR %> by Pedro Sanders
+ * Copyright (C) 2022 by Pedro Sanders
  *
  * This file is part of Name Game Application.
  *
@@ -15,3 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {NextFunction, Request, Response} from "express";
+
+// eslint-disable-next-line require-jsdoc
+export default function errorMiddleware(
+  error: any,
+  request: Request,
+  response: Response,
+  next: NextFunction
+) {
+  const status = error.status || 500;
+  const message =
+    error.message || "Something went wrong. Please try again later";
+  response.status(status).send({
+    status,
+    message
+  });
+}

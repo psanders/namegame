@@ -1,0 +1,5 @@
+# Please update with the real API URL
+PROFILE_API_URL=http://example.net/api/v1.0/profiles
+
+# Uncomment to change the logging level
+# LOGS_LEVEL=verbose

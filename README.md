@@ -1,18 +1,12 @@
-# Fonoster {Service Name}
+# Name Game Service
 
-> {A short description of the image, same as the Github Repo description.}
+> Backend support for the Name Game.
 
-{Badges should all be in one row without carriage returns. Replace the {name} with your docker image name.}
+[![publish to docker hub](https://github.com/psanders/namegame/actions/workflows/gh_docker.yml/badge.svg)](https://github.com/psanders/namegame/actions/workflows/gh_docker.yml)
 
-[![publish to docker hub](https://github.com/fonoster/nodejs-service/actions/workflows/gh_docker.yml/badge.svg)](https://github.com/fonoster/nodejs-service/actions/workflows/gh_docker.yml)
-
-{Longer description of what the image provides.}
-
-Please read the [documentation](link) on how Fonoster services are created and how to work with them.
+This is an implementation of the Name Game using NodeJS. The service exposes a set of APIs that allows to create the neccesary state and to play with the game.
 
 ## Available Versions
-
-{Keep this as-is, but replace {name} with your Docker image name.}
 
 You can see all images available to pull from Docker Hub via the [Tags]() page. Docker tag names that begin with a "change type" word such as task, bug, or feature are available for testing and may be removed at any time.
 
@@ -21,24 +15,22 @@ You can see all images available to pull from Docker Hub via the [Tags]() page. 
 You can clone this repository and manually build it.
 
 ```
-cd fonoster/{service}\:%%VERSION%%
-docker build -t fonoster/{service}:%%VERSION%% .
+cd psanders/namegame\:%%VERSION%%
+docker build -t psanders/namegame:%%VERSION%% .
 ```
 
 Otherwise, you can pull this image from the docker index.
 
 ```
-docker pull fonoster/{service}:%%VERSION%%
+docker pull psanders/namegame:%%VERSION%%
 ```
 
 ## Usage Example
 
-{An example of running the container. Most Fonoster services use docker-compose, and docker run is also beneficial.}
-
 The following is a basic example of using this image.
 
 ```bash
-docker run ...
+docker run -p 3000:3000 namegame 
 ```
 
 or with Node:
@@ -48,20 +40,14 @@ npm i
 npm start
 ```
 
-## Specs
-
-Optional specification notes.
-
-{List of packages and tools, H3 section breakouts for more detail}
-
 ## Environment Variables
 
 Environment variables are used in the entry point script to render configuration templates. You can specify the values of these variables during `docker run`, `docker-compose up`, or in Kubernetes manifests in the `env` array.
 
 {Each environment variable might have 1-2 sentences of description. For anything longer, we should probably have a sub-section within Specs to elaborate.}
 
-- `EXAMPLE_VAR2` - Example variable 1. **Required**
-- `EXAMPLE_VAR2` - Example optiona variable
+- `PROFILES_API_URL` - The url with the dataset with all the profiles for the game. **Required**
+- `LOGS_LEVEL` - Set to `verbose` to increase the log level.
 
 ## Exposed ports
 
@@ -69,24 +55,22 @@ Environment variables are used in the entry point script to render configuration
 
 ## Volumes
 
-- `/your/file/location` - File location
-- `/some/special/script.sh` - List special scripts
+None
 
 ## Useful File Locations
 
-- `/some/special/script.sh` - List special scripts
-- `/magic/dir` - And also directories
+None
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/fonoster/fonoster/blob/master/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/psanders/namegame/blob/master/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests to us.
 
 ## Authors
 
 - [Pedro Sanders](https://github.com/psanders)
 
-See the List of contributors who [participated](https://github.com/fonoster/fonoster/contributors) in this project.
+See the List of contributors who [participated](https://github.com/psanders/namegame/contributors) in this project.
 
 ## License
 
-Copyright (C) 2022 by Fonoster Inc. MIT License (see [LICENSE](https://github.com/fonoster/fonoster/blob/master/LICENSE) for details).
+Copyright (C) 2022 by Pedro Sanders. MIT License (see [LICENSE](https://github.com/psanders/namegame/blob/master/LICENSE) for details).

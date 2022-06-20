@@ -1,14 +1,23 @@
 version: '3.7'
 
 services:
-  nodejsservice:
+  # Backend service for the Name Game
+  namegame:
     build:
       context: .  
-    image: fonoster/nodejsservice:latest
+    image: psanders/namegame:latest
     restart: always
     ports:
       - 3000:3000
     environment:
-      LOGS_LEVEL: verbose
-      # Uncomment the following line to enable fluent transport
-      # LOGS_TRANSPORT: fluent
+      - PROFILE_API_URL
+      - REDIS_HOST
+      - REDIS_PORT
+      - LOGS_LEVEL
+      - LOGS_TRANSPORT
+
+  # Redis store
+  redis:
+    image: redis:6.0.3-alpine
+    command: ['redis-server', '--appendonly', 'yes']
+    hostname: redis

@@ -6,3 +6,4 @@ out/*
 dist
 coverage
 .nyc_output
+dumb.rdb
