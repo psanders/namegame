@@ -2,7 +2,7 @@
 ## Build
 ##
 FROM node:lts-alpine as builder
-LABEL Fonoster Team <fonosterteam@fonoster.com>
+LABEL Pedro Sanders <psanders@fonoster.com>
 
 COPY . /build
 WORKDIR /build
@@ -14,8 +14,8 @@ RUN npm install && npm run build && npm pack
 ##
 FROM node:lts-alpine as runner
 
-COPY --from=builder /build/nodejs-service-*.tgz ./
-RUN npm install -g nodejs-service-*.tgz
+COPY --from=builder /build/namegame*.tgz ./
+RUN npm install -g namegame*.tgz
 
 ENTRYPOINT ["sh", "-c"]
-CMD [ "nodejsservice" ]
+CMD [ "namegame" ]
