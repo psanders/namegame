@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=dev nodemon src/runner.ts",
-    "test": "cross-env NODE_ENV=dev nyc --reporter=lcov mocha test/*.test.ts --exit",
+    "test": "cross-env NODE_ENV=dev nyc mocha test/*.test.ts --exit",
     "prebuild": "rimraf ./dist tsconfig.tsbuildinfo",
     "build": "tsc -b tsconfig.json",
     "lint": "eslint src --ext .ts --fix",
@@ -48,7 +48,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@psanders/logger": "^0.3.6",
+    "@fonoster/logger": "^0.3.9",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
