@@ -11,9 +11,8 @@
 tasks:
   - init: |
     git checkout --track origin/main
-    sudo apt-get update \
-      && sudo apt-get install -y \
-      redis-server \
+    sudo apt-get update
+    sudo apt-get install -y redis-server
 
   - command: |
     git checkout main
