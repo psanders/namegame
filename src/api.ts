@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import uniqid from "uniqid"
 import GameNotFoundException from "./errors"
 import {
   Profile,
@@ -45,7 +46,7 @@ export function createGameSession(redis: RedisClient) {
   ): Promise<GameSession> => {
     const session = {
       // TODO: Generate a more developer friendly session id
-      sessionId: Math.random().toString(),
+      sessionId: uniqid(),
       mode,
       turn: 0,
       expire

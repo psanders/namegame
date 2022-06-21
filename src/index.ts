@@ -28,6 +28,10 @@ import {
 import { RedisClient, ServiceConfig } from "./types"
 import { createGetProfiles } from "./utils"
 import errorMiddleware from "./middleware"
+import swaggerUi from "swagger-ui-express"
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const swaggerDocument = require("./swagger.json")
 
 const app: Express = express()
 app.use(express.json())
@@ -40,6 +44,7 @@ app.use(express.json())
  */
 export default function start(config: ServiceConfig): void {
   // Creates new getProfiles function for the given url
+
   const getProfiles = createGetProfiles(config.profilesAPIUrl)
 
   const redis = new Redis(
@@ -47,7 +52,7 @@ export default function start(config: ServiceConfig): void {
   ) as unknown as RedisClient
 
   app.post(
-    `${config.basePath}/${config.apiVersion}/session`,
+    `${config.basePath}/${config.apiVersion}/sessions`,
     async (req: Request, res: Response) => {
       const session = await createGameSession(redis)(
         req.body.mode,
@@ -58,21 +63,21 @@ export default function start(config: ServiceConfig): void {
   )
 
   app.get(
-    `${config.basePath}/${config.apiVersion}/session/:sessionId`,
+    `${config.basePath}/${config.apiVersion}/sessions/:sessionId`,
     async (req: Request, res: Response) => {
       res.send(await getGameSession(redis)(req.params.sessionId))
     }
   )
 
   app.post(
-    `${config.basePath}/${config.apiVersion}/session/:sessionId/hand`,
+    `${config.basePath}/${config.apiVersion}/sessions/:sessionId/hand`,
     async (req: Request, res: Response) => {
       res.send(await createNewHand(redis, getProfiles)(req.params.sessionId))
     }
   )
 
   app.post(
-    `${config.basePath}/${config.apiVersion}/session/:sessionId/hand/:profileId`,
+    `${config.basePath}/${config.apiVersion}/sessions/:sessionId/hand/:profileId`,
     async (req: Request, res: Response) => {
       res.send(
         await playHand(redis)(req.params.sessionId, req.params.profileId)
@@ -80,10 +85,17 @@ export default function start(config: ServiceConfig): void {
     }
   )
 
+  app.use(
+    `${config.basePath}/${config.apiVersion}/api-docs`,
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+  )
+
   app.listen(config.port, () => {
     logger.info(
-      `⚡️[server]: Server is running http://localhost:${config.port}]`
+      `⚡️[server]: Server is running at http://localhost:${config.port}`
     )
+    logger.verbose("service configuration =", config)
   })
 
   app.use(errorMiddleware)

@@ -33,7 +33,7 @@ services:
     labels:
       - "traefik.http.middlewares.auth.basicauth.users=namegame:$$2y$$05$$WbI88g.ej1KUwaNzUkhReuEJssVzc7Ml/V/kV5AxiGzQqBEJFLnoS"
       - "traefik.http.routers.namegame.middlewares=auth@docker"
-      - "traefik.http.routers.namegame.rule=Host(`namegame.docker.localhost`)"      
+      - "traefik.http.routers.namegame.rule=Host(`namegame.docker.localhost`) || Host(`localhost`)"
     environment:
       - PROFILE_API_URL
       - REDIS_HOST

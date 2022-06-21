@@ -1,0 +1,410 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The following API provides the endpoints to create and manage the states for the Name Game application.",
+    "version": "0.1.0",
+    "title": "Name Game API",
+    "contact": {
+      "email": "psanders@fonoster.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/psanders/namegame/blob/main/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "More documentation available on Github",
+    "url": "https://github.com/psanders/namegame"
+  },
+  "basePath": "/api/v1.0",
+  "tags": [
+    {
+      "name": "game",
+      "description": "General operations for the Name Game application."
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "paths": {
+    "/sessions": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Create a new game session",
+        "description": "The endpoint creates a new game session and returns the session object.",
+        "operationId": "createGameSession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Object create parameters.",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CreateSessionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CreateSessionResponse"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/sessions/{sessionId}": {
+      "get": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Returns a game session by id",
+        "description": "Get a game session by id.",
+        "operationId": "getGameSession",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "description": "The id of the session",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "example": "V1StGXR8_Z5jdHi6B-myT"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/GetSessionResponse"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/sessions/{sessionId}/hand": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Create a new hand within the game session",
+        "description": "Creates a new hand within the game session.",
+        "operationId": "createNewHand",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "description": "The id of the session",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CreateNewHandResponse"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/sessions/{sessionId}/hand/{profileId}": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Play hand",
+        "description": "Play a hand and return the result",
+        "operationId": "playHand",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "description": "The id of the session",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "profileId",
+            "in": "path",
+            "description": "The id of the profile",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PlayHandResponse"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "UnauthorizedError": {
+      "description": "Authentication information is missing or invalid",
+      "headers": {
+        "Authorization": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateSessionRequest": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "practice",
+            "timed"
+          ]
+        },
+        "expire": {
+          "type": "number"
+        }
+      },
+      "example": {
+        "mode": "practice",
+        "expire": 3600
+      }
+    },
+    "CreateSessionResponse": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "currentProfileId": {
+          "type": "string"
+        },
+        "turn": {
+          "type": "number"
+        },
+        "expire": {
+          "type": "number"
+        }
+      },
+      "example": {
+        "sessionId": "V1StGXR8_Z5jdHi6B-myT",
+        "mode": "practice",
+        "currentProfileId": "4NCJTL13UkK0qEIAAcg4IQ",
+        "turn": 0,
+        "expire": 3600
+      }
+    },
+    "GetSessionResponse": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "currentProfileId": {
+          "type": "string"
+        },
+        "turn": {
+          "type": "number"
+        },
+        "expire": {
+          "type": "number"
+        }
+      },
+      "example": {
+        "sessionId": "V1StGXR8_Z5jdHi6B-myT",
+        "mode": "practice",
+        "currentProfileId": "4NCJTL13UkK0qEIAAcg4IQ",
+        "turn": 0,
+        "expire": 3600
+      }
+    },
+    "CreateNewHandResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProfileSummary"
+          }
+        }
+      },
+      "example": {
+        "name": "John Doe",
+        "profiles": [
+          {
+            "id": "56zuFgdeoMqAOuIKe0M4AU",
+            "headshot": {
+              "alt": "headshot ashley joost",
+              "height": 340,
+              "id": "ezBlWGiV9ucqAsiOo0Iy2",
+              "mimeType": "image/jpeg",
+              "type": "image",
+              "url": "https://namegame.willowtreeapps.com/images/headshot_ashley_joost.jpg",
+              "width": 340
+            }
+          },
+          {
+            "id": "29XgxedqmAO86mGeImqwEK",
+            "headshot": {
+              "alt": "ben frye 2020",
+              "height": 450,
+              "id": "6xFkqIGXS8WlbqAx8nQ5vX",
+              "mimeType": "image/jpeg",
+              "type": "image",
+              "url": "https://namegame.willowtreeapps.com/images/ben_frye.jpeg",
+              "width": 450
+            }
+          }
+        ]
+      }
+    },
+    "PlayHandResponse": {
+      "type": "object",
+      "properties": {
+        "won": {
+          "type": "boolean"
+        },
+        "turns": {
+          "type": "number"
+        }
+      },
+      "example": {
+        "won": "true",
+        "turns": "5"
+      }
+    },
+    "ProfileSummary": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "headshor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Headshot"
+          }
+        }
+      },
+      "example": {
+        "id": "4NCJTL13UkK0qEIAAcg4IQ",
+        "headshot": {
+          "alt": "headshot john doe",
+          "height": 340,
+          "id": "3BdQSQcuMgcs00qYoOuYSY",
+          "mimeType": "image/jpeg",
+          "type": "image",
+          "url": "https://avatar.net/images/headshot_jeff_ward.jpg",
+          "width": 340
+        }
+      }
+    },
+    "Headshot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        }
+      },
+      "example": {
+        "alt": "headshot john doe",
+        "height": 340,
+        "id": "3BdQSQcuMgcs00qYoOuYSY",
+        "mimeType": "image/jpeg",
+        "type": "image",
+        "url": "https://avatar.net/images/headshot_jeff_ward.jpg",
+        "width": 340
+      }
+    }
+  }
+}

@@ -20,7 +20,7 @@ import dotenv from "dotenv"
 import { join } from "path"
 
 if (process.env.NODE_ENV === "dev") {
-  dotenv.config({ path: join(__dirname, ".env") })
+  dotenv.config({ path: join(process.cwd(), ".env") })
 }
 
 import start from "./index"
