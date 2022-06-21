@@ -23,9 +23,7 @@
       "description": "General operations for the Name Game application."
     }
   ],
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "securityDefinitions": {
     "basicAuth": {
       "type": "basic"
@@ -39,18 +37,12 @@
   "paths": {
     "/sessions": {
       "post": {
-        "tags": [
-          "game"
-        ],
+        "tags": ["game"],
         "summary": "Create a new game session",
         "description": "The endpoint creates a new game session and returns the session object.",
         "operationId": "createGameSession",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -80,15 +72,11 @@
     },
     "/sessions/{sessionId}": {
       "get": {
-        "tags": [
-          "game"
-        ],
+        "tags": ["game"],
         "summary": "Returns a game session by id",
         "description": "Get a game session by id.",
         "operationId": "getGameSession",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "sessionId",
@@ -119,18 +107,12 @@
     },
     "/sessions/{sessionId}/hand": {
       "post": {
-        "tags": [
-          "game"
-        ],
+        "tags": ["game"],
         "summary": "Create a new hand within the game session",
         "description": "Creates a new hand within the game session.",
         "operationId": "createNewHand",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "sessionId",
@@ -158,18 +140,12 @@
     },
     "/sessions/{sessionId}/hand/{profileId}": {
       "post": {
-        "tags": [
-          "game"
-        ],
+        "tags": ["game"],
         "summary": "Play hand",
         "description": "Play a hand and return the result",
         "operationId": "playHand",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "sessionId",
@@ -219,10 +195,7 @@
       "properties": {
         "mode": {
           "type": "string",
-          "enum": [
-            "practice",
-            "timed"
-          ]
+          "enum": ["practice", "timed"]
         },
         "expire": {
           "type": "number"
