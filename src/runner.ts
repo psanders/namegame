@@ -30,7 +30,7 @@ const config: ServiceConfig = {
   profilesAPIUrl: process.env.PROFILE_API_URL,
   port: (process.env.PORT && parseInt(process.env.PORT)) || 3000,
   basePath: "/api",
-  apiVersion: "v1.0",
+  apiVersion: "v0.1",
   redis: {
     host: process.env.REDIS_HOST || "localhost",
     port: (process.env.REDIS_PORT && parseInt(process.env.REDIS_PORT)) || 6379

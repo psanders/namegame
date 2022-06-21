@@ -125,7 +125,7 @@ export interface ServiceConfig {
   // The base path for the API. It will be used to prefix all the API routes.
   basePath: "/api"
   // The version of the API. It will be used to prefix all the API routes.
-  apiVersion: "v1.0"
+  apiVersion: "v0.1"
   // The configuration for the redis server
   redis: RedisConfig
   // The url for the profiles API

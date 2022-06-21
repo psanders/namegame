@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "description": "The following API provides the endpoints to create and manage the states for the Name Game application.",
-    "version": "0.1.0",
+    "version": "0.1",
     "title": "Name Game API",
     "contact": {
       "email": "psanders@fonoster.com"
@@ -16,7 +16,7 @@
     "description": "More documentation available on Github",
     "url": "https://github.com/psanders/namegame"
   },
-  "basePath": "/api/v1.0",
+  "basePath": "/api/v0.1",
   "tags": [
     {
       "name": "game",
