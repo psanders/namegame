@@ -8,16 +8,16 @@
 ## or hacking on something new.
 ##
 
+# Currently it is set to work from v2 branch.
 tasks:
   - init: |
-    git checkout --track origin/main
-    sudo apt-get update
-    sudo apt-get install -y redis-server
-
+      git checkout --track origin/main
+      sudo apt-get update
+      sudo apt-get install -y redis-server
   - command: |
-    git checkout main
-    npm install
-    npm start
+      git checkout main
+      npm install
+      npm start
 
 #ports:
 #  - port: 8080 # alternatively configure entire ranges via '8080-8090'
