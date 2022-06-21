@@ -12,10 +12,10 @@
 tasks:
   - init: |
       git checkout --track origin/main
-      npm install
 
   - command: |
       git checkout main
+      npm install
       npm start
 
 #ports:
