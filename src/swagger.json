@@ -23,7 +23,7 @@
       "description": "General operations for the Name Game application."
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["https","http"],
   "securityDefinitions": {
     "basicAuth": {
       "type": "basic"
