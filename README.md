@@ -2,7 +2,9 @@
 
 > Backend support for the Name Game.
 
-[![publish to docker hub](https://github.com/psanders/namegame/actions/workflows/gh_docker.yml/badge.svg)](https://github.com/psanders/namegame/actions/workflows/gh_docker.yml)
+[![publish to docker hub](https://github.com/psanders/namegame/actions/workflows/gh_docker.yml/badge.svg)](https://github.com/psanders/namegame/actions/workflows/gh_docker.yml) <a href="https://gitpod.io/#https://github.com/psanders/namegame">
+<img src="https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod" alt="Contribute with Gitpod" />
+</a>
 
 This is an implementation of the Name Game using NodeJS. The service exposes a set of APIs that allows to create the neccesary state and to play with the game.
 
